@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lefto - Restaurant Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo">
+      <span class="logo-icon">🌱</span> Lefto
+    </div>
+    <h1 class="main-title">RESTAURANT DASHBOARD</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <div class="glass-card">
+
+      <div class="form-container">
+
+        <h2>Add Food Donation</h2>
+
+        <form id="donationForm" class="neu-form">
+
+          <input type="text" id="foodName" placeholder="Food Name" class="neu-input" required>
+
+          <input type="number" id="quantity" placeholder="Quantity (kg or plates)" class="neu-input" required>
+
+          <input type="text" id="location" placeholder="Pickup Location" class="neu-input" required>
+
+          <input type="datetime-local" id="expiry" class="neu-input" required>
+
+          <div class="file-upload neu-input">
+            <label>Upload Food Image</label>
+            <input type="file" id="foodImage" accept="image/*" required>
+          </div>
+
+          <textarea id="description" placeholder="Description (optional)" class="neu-input"></textarea>
+
+          <button type="submit" class="neu-btn submit-btn">
+            Add Donation
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <!-- My Donations Section -->
+    <div class="glass-card" style="margin-top: 2rem; flex-direction: column; align-items: flex-start;">
+
+      <h2 style="margin-bottom: 1rem;">My Donations</h2>
+
+      <div id="donationsList" style="display: flex; gap: 1rem; flex-wrap: wrap;"></div>
+
+    </div>
+
+  </main>
+
+  <script src="donate.js"></script>
+
+</body>
+</html>
