@@ -6,7 +6,19 @@ if (!fs.existsSync("uploads")) {
 
 const express = require("express");
 const multer = require("multer");
+const cors = require("cors");   // ✅ ADD THIS
+
 const app = express();
+
+// ✅ ADD THIS JUST AFTER app is created
+app.use(cors({
+  origin: "http://127.0.0.1:5500",
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // storage config
 const storage = multer.diskStorage({
@@ -24,7 +36,7 @@ let users = [];
 
 // route
 app.post("/register",
-   upload.single("image"), (req, res) => {
+   upload.single("license"), (req, res) => {
   try {
     console.log("Body:", req.body);
     console.log("File:", req.file);
@@ -64,3 +76,4 @@ app.get("/users", (req, res) => {
 app.use('/uploads', express.static('uploads'));
 
 app.listen(3000, () => console.log("Server running"));
+

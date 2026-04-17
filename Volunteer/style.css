@@ -1,0 +1,286 @@
+/* CSS variables for Green Palette and Neumorphism */
+:root {
+    --bg-color: #e0f2e9;
+    --primary: #2e7d32;
+    --primary-light: #4caf50;
+    --text-main: #1b5e20;
+    --text-muted: #4caf50;
+    --neu-light: #ffffff;
+    --neu-dark: #b8d8c6;
+    --danger: #d32f2f;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.status-text {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    min-height: 24px;
+}
+
+/* Top Bar: Online/Offline Toggle */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: var(--bg-color);
+    box-shadow: 6px 6px 12px var(--neu-dark), -6px -6px 12px var(--neu-light);
+}
+
+.toggle-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #a5d6a7;
+    transition: .4s;
+    border-radius: 34px;
+    box-shadow: inset 3px 3px 6px rgba(0,0,0,0.1), inset -3px -3px 6px rgba(255,255,255,0.5);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--primary-light);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Neumorphic Map Container */
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    min-height: 620px;
+    border-radius: 20px;
+    background: var(--bg-color);
+    box-shadow: 10px 10px 20px var(--neu-dark), -10px -10px 20px var(--neu-light);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.map-wrapper iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+.map-wrapper.fullscreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    max-width: 100%;
+    border-radius: 0;
+    z-index: 1000;
+}
+
+.fullscreen-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: var(--bg-color);
+    border: none;
+    outline: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+    /* Removed whitish shadow here */
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.15); 
+    transition: all 0.2s ease;
+}
+
+.fullscreen-btn:active {
+    /* Removed whitish shadow here */
+    box-shadow: inset 5px 5px 10px rgba(0,0,0,0.15);
+}
+
+/* Overlay & Neumorphic Cards */
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Bright Neumorphic Card */
+.neu-card {
+    background: var(--bg-color);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    /* Removed whitish shadow here */
+    box-shadow: 12px 12px 24px var(--neu-dark); 
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.overlay.active .neu-card {
+    transform: scale(1);
+}
+
+.neu-card h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    font-size: 1.4rem;
+    border-bottom: 2px solid var(--neu-dark);
+    padding-bottom: 10px;
+}
+
+.info-row {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.info-row i { color: var(--primary); }
+
+.package-info {
+    background: #d4eadd;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    box-shadow: inset 3px 3px 6px var(--neu-dark), inset -3px -3px 6px var(--neu-light);
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Removed whitish shadow here */
+    box-shadow: 5px 5px 10px var(--neu-dark); 
+}
+
+.btn:active {
+    /* Removed whitish shadow here */
+    box-shadow: inset 4px 4px 8px var(--neu-dark); 
+    transform: scale(0.98);
+}
+
+.btn-accept, .btn-verify {
+    background: var(--primary-light);
+    color: white;
+}
+
+.btn-decline {
+    background: var(--bg-color);
+    color: var(--danger);
+}
+
+/* OTP Input */
+.otp-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    background: var(--bg-color);
+    font-size: 1.2rem;
+    text-align: center;
+    letter-spacing: 5px;
+    outline: none;
+    color: var(--text-main);
+    box-shadow: inset 4px 4px 8px var(--neu-dark), inset -4px -4px 8px var(--neu-light);
+}

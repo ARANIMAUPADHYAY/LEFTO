@@ -1,69 +1,119 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lefto - Restaurant Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Lefto - Login</title>
+  <link rel="stylesheet" href="donate.css">
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header class="app-header">
-    <div class="logo">
-      <span class="logo-icon">🌱</span> Lefto
-    </div>
-    <h1 class="main-title">RESTAURANT DASHBOARD</h1>
-  </header>
+<!-- ================= ROLE SELECTION ================= -->
+<div id="role-selection">
 
-  <!-- Main Content -->
-  <main class="main-content">
+  <h2>Select Your Role</h2>
 
-    <div class="glass-card">
+  <button onclick="handleRoleSelection('provider', 'restaurant-form')">
+    🍽️ Restaurant
+  </button>
 
-      <div class="form-container">
+  <button onclick="handleRoleSelection('volunteer', 'volunteer-form')">
+    🛵 Volunteer
+  </button>
 
-        <h2>Add Food Donation</h2>
+  <button onclick="handleRoleSelection('ngo', 'ngo-form')">
+    🏢 NGO
+  </button>
 
-        <form id="donationForm" class="neu-form">
+</div>
 
-          <input type="text" id="foodName" placeholder="Food Name" class="neu-input" required>
 
-          <input type="number" id="quantity" placeholder="Quantity (kg or plates)" class="neu-input" required>
+<!-- ================= RESTAURANT FORM ================= -->
+<div id="restaurant-form" class="hidden">
 
-          <input type="text" id="location" placeholder="Pickup Location" class="neu-input" required>
+  <h2>Restaurant Registration</h2>
 
-          <input type="datetime-local" id="expiry" class="neu-input" required>
+  <form onsubmit="submitRestaurant(event)">
+    <input type="text" placeholder="Restaurant Name" required>
+    <input type="text" placeholder="Address" required>
+    <input type="text" placeholder="Phone Number" required>
+    <input type="file" accept="image/*" required>
 
-          <div class="file-upload neu-input">
-            <label>Upload Food Image</label>
-            <input type="file" id="foodImage" accept="image/*" required>
-          </div>
+    <button type="submit">Register</button>
+  </form>
 
-          <textarea id="description" placeholder="Description (optional)" class="neu-input"></textarea>
+  <hr>
 
-          <button type="submit" class="neu-btn submit-btn">
-            Add Donation
-          </button>
+  <!-- ================= POST FOOD SECTION ================= -->
+  <h3>Post Food</h3>
 
-        </form>
+  <form onsubmit="postFood(event)">
+    <input type="text" placeholder="Food Type (e.g. Pizza)" required>
+    <input type="number" placeholder="Quantity" required>
+    <input type="datetime-local" required>
+    <input type="text" placeholder="Pickup Location" required>
 
-      </div>
+    <button type="submit">Post Food</button>
+  </form>
 
-    </div>
+  <hr>
 
-    <!-- My Donations Section -->
-    <div class="glass-card" style="margin-top: 2rem; flex-direction: column; align-items: flex-start;">
+  <!-- ================= ACTIVE POSTS ================= -->
+  <h3>Active Posts</h3>
+  <div id="food-list"></div>
 
-      <h2 style="margin-bottom: 1rem;">My Donations</h2>
+  <button onclick="showSelection()">⬅ Back</button>
 
-      <div id="donationsList" style="display: flex; gap: 1rem; flex-wrap: wrap;"></div>
+</div>
 
-    </div>
 
-  </main>
+<!-- ================= NGO FORM ================= -->
+<div id="ngo-form" class="hidden">
 
-  <script src="donate.js"></script>
+  <h2>NGO Registration</h2>
+
+  <form onsubmit="submitNGO(event)">
+    <input type="text" placeholder="NGO Name" required>
+    <input type="text" placeholder="Address" required>
+    <input type="text" placeholder="Phone Number" required>
+    <input type="file" accept="image/*" required>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <button onclick="showSelection()">⬅ Back</button>
+
+</div>
+
+
+<!-- ================= VOLUNTEER FORM ================= -->
+<div id="volunteer-form" class="hidden">
+
+  <h2>Volunteer Registration</h2>
+
+  <form onsubmit="submitVolunteer(event)">
+    <input type="text" placeholder="Name" required>
+    <input type="text" placeholder="Phone Number" required>
+
+    <input type="file" required> <!-- driver image -->
+    <input type="file" required> <!-- license -->
+
+    <input type="text" placeholder="Vehicle Type" required>
+    <input type="number" placeholder="Capacity" required>
+
+    <input type="file" required> <!-- vehicle image -->
+
+    <button type="submit">Register</button>
+  </form>
+
+  <button onclick="showSelection()">⬅ Back</button>
+
+</div>
+
+
+<!-- ================= SCRIPT ================= -->
+<script type="module" src="script.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Welcome back, uga-vuga</h1>
+    
+    <div class="toggle-container">
+        <span class="toggle-label" id="statusLabel">Offline</span>
+        <label class="switch">
+            <input type="checkbox" id="onlineToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="status-text" id="actionStatus">Ready to help? Go online to receive orders.</div>
+
+    <div class="map-wrapper" id="mapContainer">
+        <iframe 
+          src="https://livemapdashboard.lovable.app" 
+          style="width: 100%; height: 600px; border: none; border-radius: 8px;"
+          title="Live Map Hub">
+        </iframe>
+        
+        <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+            <span class="material-icons" id="fullscreenIcon">fullscreen</span>
+        </button>
+    </div>
+
+    <div class="overlay" id="notificationOverlay">
+        <div class="neu-card">
+            <h2>New Delivery Request</h2>
+            <div class="info-row">
+                <span class="material-icons">restaurant</span>
+                <span>Pickup: Local Food Bank Kitchen</span>
+            </div>
+            <div class="info-row">
+                <span class="material-icons">volunteer_activism</span>
+                <span>Drop: City Hope NGO Center</span>
+            </div>
+            <div class="info-row">
+                <span class="material-icons">place</span>
+                <span>Dist. from current loc: 2.4 km</span>
+            </div>
+            <div class="package-info">
+                Package Info: 50kg, Surplus Meals
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-decline" onclick="handleDecline()">Decline</button>
+                <button class="btn btn-accept" onclick="handleAccept()">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="otpPickupOverlay">
+        <div class="neu-card">
+            <h2>Pickup Verification</h2>
+            <p style="margin-bottom: 15px; color:#004d40;">Enter the OTP provided by the restaurant to confirm pickup.</p>
+            <input type="text" class="otp-input" id="pickupOtp" placeholder="••••" maxlength="4">
+            <button class="btn btn-verify" style="width: 100%;" onclick="verifyPickup()">Verify & Start Journey</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="otpDropOverlay">
+        <div class="neu-card">
+            <h2>Delivery Verification</h2>
+            <p style="margin-bottom: 15px; color:#004d40;">Enter the OTP provided by the NGO to confirm successful delivery.</p>
+            <input type="text" class="otp-input" id="dropOtp" placeholder="••••" maxlength="4">
+            <button class="btn btn-verify" style="width: 100%;" onclick="verifyDrop()">Verify & Complete</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
