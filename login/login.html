@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoCharity Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="doodle doodle-1">🍃</div>
+  <div class="doodle doodle-2">🌍</div>
+  <div class="doodle doodle-3">🤝</div>
+  <div class="doodle doodle-4">💚</div>
+  <div class="doodle doodle-5">🕊️</div>
+
+  <header class="app-header">
+    <div class="logo">
+      <span class="logo-icon">🌱</span> EcoCharity
+    </div>
+    <h1 class="main-title">LOGIN / SIGN UP</h1>
+  </header>
+
+  <main class="main-content">
+    <div class="glass-card">
+      
+      <div id="role-selection" class="role-selection">
+        <h2 class="selection-title">Who are you?</h2>
+        <div class="button-group">
+      <button class="neu-btn pop-in delay-1" onclick="handleRoleSelection('provider', 'restaurant-form')">
+          <span class="btn-icon">🍽️</span>
+          Restaurant/Donator
+      </button>
+          <button class="neu-btn pop-in delay-2" onclick="handleRoleSelection('volunteer', 'volunteer-form')">
+  <span class="btn-icon">🛵</span>
+  Volunteer
+</button>
+
+<button class="neu-btn pop-in delay-3" onclick="handleRoleSelection('ngo', 'ngo-form')">
+  <span class="btn-icon">🏢</span>
+  NGO
+</button>
+        </div>
+      </div>
+      <div id="ngo-form" class="form-container hidden">
+        <button class="back-btn" onclick="showSelection()">← Back</button>
+        <h2>NGO Login / Registration</h2>
+        <form class="neu-form" onsubmit="submitNGO(event)">
+          <input type="text" placeholder="NGO Name" class="neu-input" required>
+          <input type="text" placeholder="Full Address" class="neu-input" required>
+          <input type="tel" placeholder="Phone Number" class="neu-input" required>
+          
+          <div class="file-upload neu-input">
+            <label>Upload Image of the Place</label>
+            <input type="file" accept="image/*" required>
+          </div>
+
+          <div class="google-form-link neu-panel">
+            <p>Please submit your certified documents for verification:</p>
+            <a href="https://forms.google.com/" target="_blank" class="neu-btn-small">Open Google Form ↗</a>
+          </div>
+          <img id="preview" width="100" style="display:none;">
+          <button type="submit" class="neu-btn submit-btn">Submit</button>
+        </form>
+      </div>
+
+      <div id="restaurant-form" class="form-container hidden">
+        <button class="back-btn" onclick="showSelection()">← Back</button>
+
+        <h2>Restaurant / Donator</h2>
+        <form class="neu-form" onsubmit="submitRestaurant(event)">
+          <input type="text" placeholder="Restaurant / Donator Name" class="neu-input" required>
+          <input type="text" placeholder="Full Address" class="neu-input" required>
+          <input type="tel" placeholder="Phone Number" class="neu-input" required>
+          
+          <div class="file-upload neu-input">
+            <label>Upload Image of the Place</label>
+            <input type="file" accept="image/*" required>
+          </div>
+
+          <button type="submit" class="neu-btn submit-btn">Submit</button>
+        </form>
+      </div>
+
+      <div id="volunteer-form" class="form-container hidden">
+        <button class="back-btn" onclick="showSelection()">← Back</button>
+        <h2>Volunteer Login</h2>
+        <form class="neu-form" onsubmit="submitVolunteer(event)">
+          <input type="text" placeholder="Full Name" class="neu-input" required>
+          <input type="tel" placeholder="Phone Number" class="neu-input" required>
+          
+          <div class="file-upload neu-input">
+            <label>Upload Driver Image</label>
+            <input type="file" accept="image/*" required>
+          </div>
+          
+          <div class="file-upload neu-input">
+            <label>Upload Driving License</label>
+            <input type="file" accept="image/*" required>
+          </div>
+
+          <select class="neu-input dropdown" required>
+            <option value="" disabled selected>Select Vehicle Type</option>
+            <option value="2-wheeler">2 Wheeler (Bike/Scooter)</option>
+            <option value="3-wheeler">3 Wheeler (Auto/Rickshaw)</option>
+            <option value="4-wheeler">4 Wheeler (Car/Van)</option>
+            <option value="truck">Large Truck</option>
+          </select>
+
+          <input type="text" placeholder="Carrying Capacity (e.g., 50kg)" class="neu-input" required>
+
+          <div class="file-upload neu-input">
+            <label>Vehicle Image (Visible Number Plate)</label>
+            <input type="file" accept="image/*" required>
+          </div>
+
+          <button type="submit" class="neu-btn submit-btn">Submit</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

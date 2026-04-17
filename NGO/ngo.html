@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="ngo_styles.css">
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <img class="header-logo" src="https://via.placeholder.com/50/4caf50/c8e6c9?text=Logo" alt="NGO Logo">
+        
+        <div class="toggle-container">
+            <span class="toggle-label" id="statusLabel">Offline</span>
+            <label class="switch">
+                <input type="checkbox" id="requestToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <a class="edit-details" id="editDetailsLink">Edit Details</a>
+    </header>
+
+    <div class="status-text" id="actionStatus">Ready to receive? Go online to request food.</div>
+
+    <main class="main-view" id="mainViewContainer">
+        <div class="map-wrapper" id="mapContainer">
+            <div class="dummy-map">
+                <span class="material-icons" style="margin-right: 8px;">map</span> Live Tracking Map
+            </div>
+            <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+                <span class="material-icons" id="fullscreenIcon">fullscreen</span>
+            </button>
+        </div>
+
+        <div class="info-wrapper">
+            <h2>Package Information</h2>
+            <div class="info-row">
+                <span class="material-icons">info</span>
+                <span id="packageDetailsText">Waiting for details...</span>
+            </div>
+            <div class="info-row">
+                <span class="material-icons">place</span>
+                <span id="packageDistance">Distance: Calculating...</span>
+            </div>
+            
+            <div class="otp-display-panel" id="driverOtpPanel" style="display: none;">
+                <span class="otp-title">Provide this PIN to the driver:</span>
+                <span class="otp-number" id="generatedOtp">----</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="overlay" id="popupOverlay">
+        
+        <div class="pop-up-card" id="popupRequirement">
+            <button class="close-btn" id="closePopupBtn">
+                <span class="material-icons">close</span>
+            </button>
+
+            <h2>Set Food Requirement</h2>
+            <p>Please specify your required food quantity.</p>
+            <div class="input-group">
+                <input type="number" class="input-field" id="foodQuantity" placeholder="e.g. 50">
+                <select class="dropdown-select" id="foodUnit">
+                    <option value="kg">kg</option>
+                    <option value="per serving">per serving</option>
+                </select>
+            </div>
+            <button class="btn btn-submit" onclick="submitRequirement()">Submit Request</button>
+        </div>
+
+    </div>
+
+    <script src="ngo_script.js"></script>
+</body>
+</html>
