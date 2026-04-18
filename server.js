@@ -35,7 +35,7 @@ let users = [];
 
 // route
 app.post("/register",
-   upload.single("license"), (req, res) => {
+   upload.single("image"), (req, res) => {
   try {
     console.log("Body:", req.body);
     console.log("File:", req.file);
@@ -79,8 +79,14 @@ app.listen(3000, () => console.log("Server running"));
 //unique order id generator
 let orders = [];
 app.post("/create-order", (req, res) => {
-  const { foodType, quantity, expiry, pickupLocation, dropLocation } = req.body;
-
+  const { foodType, quantity, pickupTime, expiry, pickupLocation, dropLocation } = req.body;
+   
+  const now = new Date();
+   if (new Date(expiry) <= now) {
+     return res.status(400).json({
+     error: "Expiry time must be in the future"
+     });
+    }
   const order = {
     id: Date.now(),
     foodType,
@@ -103,38 +109,38 @@ app.get("/orders", (req, res) => {
   res.json(orders);
 });
 
-//show OTP on restaurant side
-fetch("http://localhost:3000/create-order", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    foodType,
-    quantity,
-    expiry,
-    pickupLocation,
-    dropLocation
-  })
-})
-.then(res => res.json())
-.then(order => {
-  alert("Pickup OTP: " + order.pickupOTP); // 👈 SHOW THIS
-});
+// //show OTP on restaurant side
+// fetch("http://localhost:3000/create-order", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({
+//     foodType,
+//     quantity,
+//     expiry,
+//     pickupLocation,
+//     dropLocation
+//   })
+// })
+// .then(res => res.json())
+// .then(order => {
+//   alert("Pickup OTP: " + order.pickupOTP); // 👈 SHOW THIS
+// });
 
-//fetch order by id
-let currentOrder = null;
+// //fetch order by id
+// let currentOrder = null;
 
-async function loadOrder() {
-  const res = await fetch("http://localhost:3000/orders");
-  const data = await res.json();
+// async function loadOrder() {
+//   const res = await fetch("http://localhost:3000/orders");
+//   const data = await res.json();
 
-  currentOrder = data[0]; // first order for now
+//   currentOrder = data[0]; // first order for now
 
-  if (currentOrder) {
-    document.querySelector("#notificationOverlay .info-row:nth-child(2) span:last-child")
-      .innerText = "Pickup: " + currentOrder.pickupLocation;
+//   if (currentOrder) {
+//     document.querySelector("#notificationOverlay .info-row:nth-child(2) span:last-child")
+//       .innerText = "Pickup: " + currentOrder.pickupLocation;
 
-    document.querySelector("#notificationOverlay .info-row:nth-child(3) span:last-child")
-      .innerText = "Drop: " + currentOrder.dropLocation;
-  }
-}
-loadOrder();
+//     document.querySelector("#notificationOverlay .info-row:nth-child(3) span:last-child")
+//       .innerText = "Drop: " + currentOrder.dropLocation;
+//   }
+// }
+// loadOrder();

@@ -54,3 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+function goToLogin() {
+    window.location.href = "../login/login.html";
+}
