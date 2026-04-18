@@ -12,6 +12,9 @@ const otpDropOverlay = document.getElementById('otpDropOverlay');
 let notificationTimer;
 let journeyTimer;
 
+const DUMMY_PICKUP_OTP = "6598";
+const DUMMY_DROP_OTP = "5768";
+
 // Toggle Online/Offline logic
 toggle.addEventListener('change', (e) => {
     if (e.target.checked) {
@@ -59,34 +62,34 @@ function handleAccept() {
 // OTP Verification Logic
 function verifyPickup() {
     const otp = document.getElementById('pickupOtp').value;
-    if(otp.length > 0) { // basic validation for mockup
+
+    if (otp === DUMMY_PICKUP_OTP) {
         otpPickupOverlay.classList.remove('active');
         document.getElementById('pickupOtp').value = '';
-        actionStatus.innerText = "Package secured! Navigating to NGO Drop-off...";
-        
-        // Simulate arriving at NGO after 3 seconds
+
+        actionStatus.innerText = "Package secured! Navigating to NGO...";
+
         journeyTimer = setTimeout(() => {
-            actionStatus.innerText = "Arrived at NGO. Please verify drop-off OTP.";
+            actionStatus.innerText = "Arrived at NGO. Please verify drop OTP.";
             otpDropOverlay.classList.add('active');
         }, 3000);
+
     } else {
-        alert("Please enter the 4-digit OTP.");
+        alert("❌ Wrong OTP");
     }
 }
 
 function verifyDrop() {
     const otp = document.getElementById('dropOtp').value;
-    if(otp.length > 0) {
+
+    if (otp === DUMMY_DROP_OTP) {
         otpDropOverlay.classList.remove('active');
         document.getElementById('dropOtp').value = '';
-        actionStatus.innerText = "Delivery Complete! Thank you for your service. Waiting for next order...";
-        
-        // Reset flow for demo
-        notificationTimer = setTimeout(() => {
-            if(toggle.checked) notificationOverlay.classList.add('active');
-        }, 5000);
+
+        actionStatus.innerText = "Delivery Complete!";
+
     } else {
-        alert("Please enter the 4-digit OTP.");
+        alert("❌ Wrong OTP");
     }
 }
 
@@ -97,6 +100,24 @@ function closeAllOverlays() {
     otpDropOverlay.classList.remove('active');
 }
 
+//dummy restaurant data
+const dummyFoodPosts = [
+  {
+    id: 1,
+    foodType: "Pizza",
+    quantity: 20,
+    location: "Bhopal Railway Station",
+    expiry: "2026-04-18T22:00"
+  },
+  {
+    id: 2,
+    foodType: "Rice & Curry",
+    quantity: 50,
+    location: "MP Nagar Bhopal",
+    expiry: "2026-04-18T21:30"
+  }
+];
+
 // Map Fullscreen Toggle
 function toggleFullscreen() {
     mapContainer.classList.toggle('fullscreen');
@@ -106,3 +127,31 @@ function toggleFullscreen() {
         fullscreenIcon.innerText = "fullscreen";
     }
 }
+
+async function displayOnMap(posts) {
+  for (let post of posts) {
+    const coords = await getCoordinates(post.location);
+
+    L.marker(coords)
+      .addTo(map)
+      .bindPopup(`${post.foodType} - ${post.quantity}`);
+  }
+}
+
+async function loadFoodPosts() {
+  try {
+    const res = await fetch("http://localhost:3000/food-posts");
+    const posts = await res.json();
+
+    if (posts.length === 0) throw "No backend data";
+
+    displayOnMap(posts); // real data
+  } catch (err) {
+    console.log("Using dummy data");
+    displayOnMap(dummyFoodPosts); // fallback
+  }
+}
+
+initMap();
+getVolunteerLocation();
+loadFoodPosts();

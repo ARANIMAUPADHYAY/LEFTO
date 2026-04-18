@@ -89,8 +89,8 @@ function submitRequirement() {
 
 // Generate the Long-Lasting OTP for the Driver
 function generateDriverOTP() {
-    const randomOtp = Math.floor(1000 + Math.random() * 9000);
-    generatedOtpText.innerText = randomOtp;
+    const otp = "5768"; // drop OTP
+    generatedOtpText.innerText = otp;
 }
 
 // Edit details link logic
